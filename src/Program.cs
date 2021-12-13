@@ -110,9 +110,9 @@ using (var xw = XmlWriter.Create("diagrams/sample1.g.drawio",settings))
                     //AddLine(xw, 4, 3, 2);
                     Inherits(xw, 4, 3, 2);
 
-                    AddClass(xw, 5, "Mama", 40, 240);
-                    AddClass(xw, 6, "Anna", 40, 340);
-                    AddClass(xw, 7, "Emma", 140, 340);
+                    AddClass(xw, 5, "Bla", 40, 240);
+                    AddClass(xw, 6, "Bli", 40, 340);
+                    AddClass(xw, 7, "Blupp", 140, 340);
                     //AddLine(xw, 7, 5, 6);
                     Inherits(xw, 8, 6, 5);
                     Inherits(xw, 9, 7, 5);
