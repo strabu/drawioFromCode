@@ -9,59 +9,50 @@ public class DrawIOWriter
     {
     }
 
-    public void WriteFile(string fileName)
+    public XmlWriter WriteHeader(string fileName)
     {
-
         var settings = new XmlWriterSettings() { Indent = true };
-        using (var xw = XmlWriter.Create(fileName, settings))
-        {
-            WriteStartFile(xw);
-            WriteStartDiagram(xw);
-            WriteStartGraphModel(xw);
+        var xw = XmlWriter.Create(fileName, settings);
+        WriteStartFile(xw);
+        WriteStartDiagram(xw);
+        WriteStartGraphModel(xw);
 
-            xw.WriteStartElement("root");
+        xw.WriteStartElement("root");
 
-            xw.WriteStartElement("mxCell");
-            xw.WriteAttributeString("id", "0");
-            xw.WriteEndElement();
+        xw.WriteStartElement("mxCell");
+        xw.WriteAttributeString("id", "0");
+        xw.WriteEndElement();
 
-            xw.WriteStartElement("mxCell");
-            xw.WriteAttributeString("id", "1");
-            xw.WriteAttributeString("parent", "0");
-            xw.WriteEndElement();
-
-            AddClass(xw, 2, "Fooh", 40, 40);
-            AddClass(xw, 3, "Bar", 40, 140);
-            Inherits(xw, 4, 3, 2);
-
-            AddClass(xw, 5, "Bla", 40, 240);
-            AddClass(xw, 6, "Bli", 40, 340);
-            AddClass(xw, 7, "Blupp", 140, 340);
-            Inherits(xw, 8, 6, 5);
-            Inherits(xw, 9, 7, 5);
-
-            xw.WriteEndElement();
-            xw.WriteEndElement();
-            xw.WriteEndElement();
-            xw.WriteEndElement();
-            xw.Flush();
-        }
+        xw.WriteStartElement("mxCell");
+        xw.WriteAttributeString("id", "1");
+        xw.WriteAttributeString("parent", "0");
+        xw.WriteEndElement();
+        return xw;
     }
 
-    private static void WriteStartFile(XmlWriter xw)
+    public void WriteFooter(XmlWriter xw)
+    {
+        xw.WriteEndElement();
+        xw.WriteEndElement();
+        xw.WriteEndElement();
+        xw.WriteEndElement();
+        xw.Flush();
+    }
+
+    public void WriteStartFile(XmlWriter xw)
     {
         xw.WriteStartElement("mxfile");
         xw.WriteAttributeString("host", "65bd71144e");
     }
 
-    private static void WriteStartDiagram(XmlWriter xw)
+    public void WriteStartDiagram(XmlWriter xw)
     {
         xw.WriteStartElement("diagram");
         xw.WriteAttributeString("id", "WBtnvRxhtW3SN2imph_D");
         xw.WriteAttributeString("name", "Page1");
     }
 
-    private static void WriteStartGraphModel(XmlWriter xw)
+    public void WriteStartGraphModel(XmlWriter xw)
     {
         xw.WriteStartElement("mxGraphModel");
         xw.WriteAttributeString("dx", "684");
@@ -81,7 +72,7 @@ public class DrawIOWriter
         xw.WriteAttributeString("shadow", "0");
     }
 
-    void AddClass(XmlWriter xw, int id, string name, int x, int y)
+    public void AddClass(XmlWriter xw, int id, string name, int x, int y)
     {
         xw.WriteStartElement("mxCell");
         xw.WriteAttributeString("id", id.ToString());
@@ -99,7 +90,7 @@ public class DrawIOWriter
         xw.WriteEndElement();
     }
 
-    void AddLine(XmlWriter xw, int id, int source, int target)
+    public void AddLine(XmlWriter xw, int id, int source, int target)
     {
         xw.WriteStartElement("mxCell");
         xw.WriteAttributeString("id", id.ToString());
@@ -116,7 +107,7 @@ public class DrawIOWriter
         xw.WriteEndElement();
     }
 
-    void Inherits(XmlWriter xw, int id, int source, int inheritsFrom)
+    public void Inherits(XmlWriter xw, int id, int source, int inheritsFrom)
     {
         xw.WriteStartElement("mxCell");
         xw.WriteAttributeString("id", id.ToString());
